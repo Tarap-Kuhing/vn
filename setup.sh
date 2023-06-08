@@ -192,8 +192,12 @@ else
 sts=$new_email
 fi
 # email
-mkdir -p /usr/local/etc/xray/
+mkdir -p /usr/local/etc/xray
+mkdir -p /etc/slowdns
+touch /usr/local/etc/xray/city
+touch /usr/local/etc/xray/isp
 touch /usr/local/etc/xray/email
+touch /usr/local/etc/xray/sldomain
 echo $sts > /usr/local/etc/xray/email
 echo ""
 echo -e "\e[1;32m════════════════════════════════════════════════════════════\e[0m"
@@ -261,18 +265,20 @@ clear
 echo ""
 clear
 echo -e "\e[0;32mREADY FOR INSTALLATION SCRIPT...\e[0m"
-sleep 2
+sleep 1
 #install ssh ovpn
 echo -e "\e[0;32mINSTALLING SSH & OVPN...\e[0m"
 sleep 1
 wget https://raw.githubusercontent.com/Tarap-Kuhing/vn/main/install/ssh-vpn.sh && chmod +x ssh-vpn.sh && ./ssh-vpn.sh
 echo -e "\e[0;32mDONE INSTALLING SSH & OVPN\e[0m"
+sleep 3
 clear
 #install Xray
 echo -e "\e[0;32mINSTALLING XRAY CORE...\e[0m"
 sleep 1
 wget https://raw.githubusercontent.com/Tarap-Kuhing/vn/main/install/ins-xray.sh && chmod +x ins-xray.sh && ./ins-xray.sh
 echo -e "\e[0;32mDONE INSTALLING XRAY CORE\e[0m"
+sleep 3
 clear
 #install ohp-server
 echo -e "\e[0;32mINSTALLING OHP PORT...\e[0m"
@@ -281,22 +287,27 @@ wget https://raw.githubusercontent.com/Tarap-Kuhing/vn/main/install/ohp.sh && ch
 wget https://raw.githubusercontent.com/Tarap-Kuhing/vn/main/install/ohp-dropbear.sh && chmod +x ohp-dropbear.sh && ./ohp-dropbear.sh
 wget https://raw.githubusercontent.com/Tarap-Kuhing/vn/main/install/ohp-ssh.sh && chmod +x ohp-ssh.sh && ./ohp-ssh.sh
 echo -e "\e[0;32mDONE INSTALLING OHP PORT\e[0m"
+sleep 3
 clear
 #install websocket
 echo -e "\e[0;32mINSTALLING WEBSOCKET PORT...\e[0m"
 wget https://raw.githubusercontent.com/Tarap-Kuhing/vn/main/websocket-python/websocket.sh && chmod +x websocket.sh && ./websocket.sh
 echo -e "\e[0;32mDONE INSTALLING WEBSOCKET PORT\e[0m"
+sleep 3
 clear
-#install SET-BR
-echo -e "\e[0;32mINSTALLING SET-BR...\e[0m"
+#install slowdns
+echo -e "\e[0;32mINSTALLING SLOWDNS...\e[0m"
 sleep 1
 wget https://raw.githubusercontent.com/Tarap-Kuhing/vn/main/slowdns/installsl.sh && chmod +x installsl.sh && ./installsl.sh
+echo -e "\e[0;32mDONE INSTALLING SLOWDNS...\e[0m"
+sleep 3
 clear
 #install SET-BR
 echo -e "\e[0;32mINSTALLING SET-BR...\e[0m"
 sleep 1
 wget https://raw.githubusercontent.com/Tarap-Kuhing/vn/main/install/set-br.sh && chmod +x set-br.sh && ./set-br.sh
 echo -e "\e[0;32mDONE INSTALLING SET-BR...\e[0m"
+sleep 3
 clear
 # set time GMT +8
 ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
@@ -338,16 +349,15 @@ IP=$(echo $SSH_CLIENT | awk '{print $1}')
 TMPFILE='/tmp/ipinfo-$DATE_EXEC.txt'
 curl http://ipinfo.io/$IP -s -o $TMPFILE
 ORG=$(cat $TMPFILE | jq '.org' | sed 's/"//g')
-domain=$(cat /etc/xray/domain)
+domain=$(cat /usr/local/etc/xray/domain)
 LocalVersion=$(cat /root/versi)
 IPVPS=$(curl -s ipinfo.io/ip )
 ISPVPS=$( curl -s ipinfo.io/org )
 CHATID="847645599"
 KEY="6208240566:AAFINY02Hij6uwZo1rbgSLoyb4qBeT4p7RA"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
-ISP=$(cat /etc/xray/isp)
-CITY=$(cat /etc/xray/city)
-domain=$(cat /etc/xray/domain) 
+ISP=$(cat /user/local/etc/xray/isp)
+CITY=$(cat /usr/local/etc/xray/city)
 token=""
 chatid=""
 ttoday="$(vnstat | grep today | awk '{print $8" "substr ($9, 1, 3)}' | head -1)"
@@ -375,8 +385,8 @@ TEXT="
 "
 curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
 clear
-curl -s ipinfo.io/city?token=75082b4831f909 >> /etc/xray/city
-curl -s ipinfo.io/org?token=75082b4831f909  | cut -d " " -f 2-10 >> /etc/xray/isp
+curl -s ipinfo.io/city?token=75082b4831f909 >> /usr/local/etc/xray/city
+curl -s ipinfo.io/org?token=75082b4831f909  | cut -d " " -f 2-10 >> /usr/local/etc/xray/isp
 echo " "
 echo "Installation has been completed!!"
 echo " "
