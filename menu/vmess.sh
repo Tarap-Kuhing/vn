@@ -72,8 +72,8 @@ red "Permission Denied!"
 exit 0
 fi
 clear
-curl -s ipinfo.io/city?token=75082b4831f909 >> /etc/xray/city
-curl -s ipinfo.io/org?token=75082b4831f909  | cut -d " " -f 2-10 >> /etc/xray/isp
+curl -s ipinfo.io/city?token=75082b4831f909 >> /usr/local/etc/xray/city
+curl -s ipinfo.io/org?token=75082b4831f909  | cut -d " " -f 2-10 >> /usr/local/etc/xray/isp
 # // PROVIDED
 clear
 source /var/lib/ipvps.conf
@@ -114,8 +114,8 @@ else
      domain=$IP
 fi
 TIMES="10"
-CHATID=$(cat /tarap/per/id)
-KEY=$(cat /etc/tarap/token)
+CHATID=$(cat /usr/local/xray/id)
+KEY=$(cat /usr/local/etc/xray/token)
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 # // FUCTION ADD USER
 function menu1 () {
@@ -153,7 +153,7 @@ cat>/usr/local/etc/xray/$user-tls.json<<EOF
       "v": "2",
       "ps": "${user}",
       "add": "${domain}",
-      "port": "8443",
+      "port": "443",
       "id": "${uuid}",
       "aid": "0",
       "net": "ws",
@@ -161,6 +161,7 @@ cat>/usr/local/etc/xray/$user-tls.json<<EOF
       "type": "none",
       "host": "${domain}",
       "tls": "tls",
+	  "sni": "$sni"
 }
 EOF
 cat>/usr/local/etc/xray/$user-none.json<<EOF
