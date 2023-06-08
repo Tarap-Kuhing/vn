@@ -1,7 +1,7 @@
 #!/bin/sh
 ns_domain_cloudflare() {
 	DOMAIN="tarong.my.id"
-	DOMAIN_PATH=$(cat /etc/xray/domain)
+	DOMAIN_PATH=$(cat /usr/local/etc/xray/domain)
 	SUB=$(tr </dev/urandom -dc a-z0-9 | head -c7)
 	SUB_DOMAIN=${SUB}."tarong.my.id"
 	NS_DOMAIN=ns.${SUB_DOMAIN}
@@ -41,7 +41,7 @@ ns_domain_cloudflare() {
 		-H "Content-Type: application/json" \
 		--data '{"type":"NS","name":"'${NS_DOMAIN}'","content":"'${DOMAIN_PATH}'","proxied":false}'
 	)
-	echo $NS_DOMAIN >/etc/xray/dns
+	echo $NS_DOMAIN > /usr/local/etc/xray/sldomain
 }
 
 setup_dnstt() {
