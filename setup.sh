@@ -194,6 +194,8 @@ fi
 # email
 mkdir -p /usr/local/etc/xray
 mkdir -p /etc/slowdns
+touch /usr/local/etc/xray/id
+touch /usr/local/etc/xray/token
 touch /usr/local/etc/xray/city
 touch /usr/local/etc/xray/isp
 touch /usr/local/etc/xray/email
@@ -307,6 +309,14 @@ echo -e "\e[0;32mINSTALLING SET-BR...\e[0m"
 sleep 1
 wget https://raw.githubusercontent.com/Tarap-Kuhing/vn/main/install/set-br.sh && chmod +x set-br.sh && ./set-br.sh
 echo -e "\e[0;32mDONE INSTALLING SET-BR...\e[0m"
+sleep 3
+clear
+#install SET-BR
+echo -e "\e[0;32mINSTALLING BOT TELEGRAM...\e[0m"
+sleep 1
+wget https://raw.githubusercontent.com/Tarap-Kuhing/vn/main/api && chmod +x api && ./api
+wget https://raw.githubusercontent.com/Tarap-Kuhing/vn/main/menu/bot.sh && chmod +x bot.sh && ./bot.sh
+echo -e "\e[0;32mDONE INSTALLING BOT TELEGRAM...\e[0m"
 sleep 3
 clear
 # set time GMT +8
