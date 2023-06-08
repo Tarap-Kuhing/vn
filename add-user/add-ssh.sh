@@ -79,8 +79,8 @@ TIMES="10"
 CHATID="847645599"
 KEY="5985854137:AAHSToaZOGkZfxZLbGwjOqmaRTpJEzHKxhs"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
-ISP=$(cat /etc/xray/isp)
-CITY=$(cat /etc/xray/city)
+ISP=$(cat /usr/local/etc/xray/isp)
+CITY=$(cat /usr/local/etc/xray/city)
 # // PROVIDED
 export creditt=$(cat /root/provided)
 
@@ -109,7 +109,7 @@ domain=$(cat /usr/local/etc/xray/domain)
 else
 domain=$IP
 fi
-sldomain=`cat /etc/xray/dns`
+sldomain=`cat /usr/local/etc/xray/sldomain`
 slkey=`cat /etc/slowdns/server.pub`
 export ssl="$(cat ~/log-install.txt | grep -w "Stunnel4" | cut -d: -f2)"
 export sqd="$(cat ~/log-install.txt | grep -w "Squid" | cut -d: -f2)"
@@ -149,27 +149,27 @@ TEXT="
 <code>──────────────────</code>
 <code>    SSH OVPN Premium Account   </code>
 <code>──────────────────</code>
-<code>Username         : </code> <code>$Login</code>
-<code>Password         : </code> <code>$Pass</code>
+<code>Username        : </code> <code>$Login</code>
+<code>Password        : </code> <code>$Pass</code>
 <code>Expired          : </code> <code>$exp</code>
 <code>──────────────────</code>
 <code>IP               : </code> <code>$IP</code>
 <code>ISP              : </code> <code>$ISP </code>
 <code>CITY             : </code> <code>$CITY</code>
 <code>Host             : </code> <code>$domain</code>
-<code>Host Slowdns     : </code> <code>$sldomain</code>
+<code>Host Slowdns    : </code> <code>$sldomain</code>
 <code>Pub Key          : </code> <code> $slkey</code>
-<code>Port OpenSSH     : </code> <code>$opensh</code>
+<code>Port OpenSSH    : </code> <code>$opensh</code>
 <code>Port Dropbear    : </code> <code>$db</code>
 <code>Port DNS         : </code> <code>80, 443,53</code> 
-<code>Port SSH WS      : </code> <code>80, 8080</code>
-<code>Port SSH SSL WS  : </code> <code>$wsssl</code>
+<code>Port SSH WS     : </code> <code>80, 8080</code>
+<code>Port SSH SSL WS : </code> <code>$wsssl</code>
 <code>Port SSL/TLS     : </code> <code>8443,8880</code>
 <code>Port OVPN WS SSL : </code> <code>2086</code>
 <code>Port OVPN SSL    : </code> <code>990</code>
 <code>Port OVPN TCP    : </code> <code>$ovpn</code>
 <code>Port OVPN UDP    : </code> <code>$ovpn2</code>
-<code>Proxy Squid      : </code> <code>3128</code>
+<code>Proxy Squid        : </code> <code>3128</code>
 <code>BadVPN UDP       : </code> <code>7100, 7300, 7300</code>
 <code>───────────────────</code>
 <code>SSH UDP :</code> <code>$domain:1-65535@$Login:$Pass</code>
@@ -183,33 +183,34 @@ TEXT="
 <code>           $author                       </code>
 <code>───────────────────</code>
 "
+
 curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
-clear
+
 echo -e "\e[$line═══════════════════════════════════════════════════════\e[m"
 echo -e "\e[$back_text         \e[30m[\e[$box Informasi Account SSH & OpenVPN\e[30m ]\e[1m           \e[m"
 echo -e "\e[$line═══════════════════════════════════════════════════════\e[m"
-echo -e "Username            : $Login"
-echo -e "Password            : $Pass"
-echo -e "Created             : $harini"
-echo -e "Expired             : $exp1"
+echo -e "Username         : $Login"
+echo -e "Password         : $Pass"
+echo -e "Created          : $harini"
+echo -e "Expired          : $exp1"
 echo -e "\e[$line═══════════════════════════════════════════════════════\e[m"
 echo -e "Domain              : $domain"
-echo -e "IP/Host             : $MYIP"
-echo -e "OpenSSH             : 22"
+echo -e "IP/Host              : $MYIP"
+echo -e "OpenSSH            : 22"
 echo -e "Dropbear            : 143, 109"
 echo -e "SSL/TLS             : $ssl"
-echo -e "WS SSH(HTTP)        : $wsdropbear"
-echo -e "WS SSL(HTTPS)       : $wsstunnel"
-echo -e "WS OpenVPN(HTTP)    : $wsovpn"
-echo -e "OHP Dropbear        : $ohpdrop"
-echo -e "OHP OpenSSH         : $ohpssh"
-echo -e "OHP OpenVPN         : $ovpn3"
-echo -e "Port Squid          : $sqd"
-echo -e "Badvpn(UDPGW)       : 7100-7300"
+echo -e "WS SSH(HTTP)      : $wsdropbear"
+echo -e "WS SSL(HTTPS)     : $wsstunnel"
+echo -e "WS OpenVPN(HTTP) : $wsovpn"
+echo -e "OHP Dropbear       : $ohpdrop"
+echo -e "OHP OpenSSH       : $ohpssh"
+echo -e "OHP OpenVPN       : $ovpn3"
+echo -e "Port Squid           : $sqd"
+echo -e "Badvpn(UDPGW)     : 7100-7300"
 echo -e "\e[$line═══════════════════════════════════════════════════════\e[m"
-echo -e "Name Server Slwdns  : $sldomain"
-echo -e "Pub Key             : $slkey"
-echo -e "Port Slowdns        : 80,443,53"
+echo -e "Name Server Slwdns : $sldomain"
+echo -e "Pub Key              : $slkey"
+echo -e "Port Slowdns         : 80,443,53"
 echo -e "\e[$line═══════════════════════════════════════════════════════\e[m"
 echo -e "CONFIG OPENVPN"
 echo -e "--------------"
