@@ -314,7 +314,6 @@ clear
 #install SET-BR
 echo -e "\e[0;32mINSTALLING BOT TELEGRAM...\e[0m"
 sleep 1
-wget https://raw.githubusercontent.com/Tarap-Kuhing/vn/main/api && chmod +x api && ./api
 wget https://raw.githubusercontent.com/Tarap-Kuhing/vn/main/menu/bot.sh && chmod +x bot.sh && ./bot.sh
 echo -e "\e[0;32mDONE INSTALLING BOT TELEGRAM...\e[0m"
 sleep 3
