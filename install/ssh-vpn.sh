@@ -309,7 +309,8 @@ wget -O dns "https://raw.githubusercontent.com/Tarap-Kuhing/vn/main/system/dns.s
 wget -O nf "https://raw.githubusercontent.com/Tarap-Kuhing/vn/main/system/nf.sh"
 wget -O addip "https://raw.githubusercontent.com/Tarap-Kuhing/vn/main/menu/addip.sh"
 wget -O tes "https://raw.githubusercontent.com/Tarap-Kuhing/vn/main/change-port/tes.sh"
-wget -O cert "https://raw.githubusercontent.com/Tarap-Kuhing/vn/main/cert.sh"
+#wget -O cert "https://raw.githubusercontent.com/Tarap-Kuhing/vn/main/cert.sh"
+wget -O bot "https://raw.githubusercontent.com/Tarap-Kuhing/vn/main/bot.sh"
 chmod +x addip
 chmod +x add-host
 chmod +x menu
@@ -362,7 +363,7 @@ chmod +x message-ssh
 chmod +x dns
 chmod +x nf
 chmod +x tes
-chmod +x cert
+chmod +x bot
 echo "0 0 * * * root delete" >> /etc/crontab
 echo "*/2 * * * * root clear-log" >> /etc/crontab
 echo "0 5 * * * root reboot" >> /etc/crontab
